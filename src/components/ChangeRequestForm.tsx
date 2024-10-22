@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 
 type FormData = {
   reason: 'family' | 'other';
@@ -30,20 +31,16 @@ const ChangeRequestForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div>
         <label className="block text-sm font-medium text-gray-700">1. 変更事由（必須項目）</label>
-        <div className="mt-2 space-y-2">
+        <RadioGroup className="mt-2 space-y-2" value={reason} onValueChange={(value: 'family' | 'other') => setReason(value)}>
           <div className="flex items-center space-x-2">
-            <Checkbox id="family" checked={reason === 'family'} onCheckedChange={() => setReason('family')} />
-            <label htmlFor="family" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-              家庭の事情
-            </label>
+            <RadioGroupItem value="family" id="family" />
+            <Label htmlFor="family">家庭の事情</Label>
           </div>
           <div className="flex items-center space-x-2">
-            <Checkbox id="other" checked={reason === 'other'} onCheckedChange={() => setReason('other')} />
-            <label htmlFor="other" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-              その他
-            </label>
+            <RadioGroupItem value="other" id="other" />
+            <Label htmlFor="other">その他</Label>
           </div>
-        </div>
+        </RadioGroup>
         {reason === 'family' && (
           <Textarea
             placeholder="具体的内容（50文字以内）"
