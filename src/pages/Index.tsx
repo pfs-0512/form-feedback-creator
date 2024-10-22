@@ -8,7 +8,7 @@ const Index = () => {
         <div className="md:flex">
           <div className="p-8 w-full">
             <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold mb-1">フォーム</div>
-            <h1 className="block mt-1 text-lg leading-tight font-medium text-black">変更リクエスト</h1>
+            <h1 className="block mt-1 text-lg leading-tight font-medium text-black">Aプランへ変更するにあたり、下記ご回答ください。</h1>
             <ChangeRequestForm />
           </div>
         </div>
