@@ -14,7 +14,11 @@ type FormData = {
   otherComments?: string;
 };
 
-const ChangeRequestForm = () => {
+interface ChangeRequestFormProps {
+  onCancel: () => void;
+}
+
+const ChangeRequestForm: React.FC<ChangeRequestFormProps> = ({ onCancel }) => {
   const { register, handleSubmit, watch, formState: { errors } } = useForm<FormData>();
   const [reason, setReason] = useState<'family' | 'other' | null>(null);
   const { toast } = useToast();
@@ -25,6 +29,7 @@ const ChangeRequestForm = () => {
       title: "フォームが送信されました",
       description: "変更リクエストを受け付けました。",
     });
+    onCancel(); // Close the modal after submission
   };
 
   return (
@@ -79,7 +84,10 @@ const ChangeRequestForm = () => {
         {errors.otherComments && <p className="text-red-500 text-xs mt-1">その他のコメントは200文字以内です。</p>}
       </div>
 
-      <Button type="submit" className="w-full">送信</Button>
+      <div className="flex justify-between mt-6">
+        <Button type="button" variant="outline" onClick={onCancel}>キャンセル</Button>
+        <Button type="submit">送信</Button>
+      </div>
     </form>
   );
 };
